@@ -1,0 +1,20 @@
+﻿node_modules/
+dist/
+.env
+.env.local
+.env.*.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.DS_Store
+Thumbs.db
+.vite/
+coverage/
+
+# Animation source/archive folders — working material, never deployed.
+# NOTE: the active deployable frames in public/frames/truck-journey-jpg/
+# stay tracked (the site loads them at runtime); do not ignore that folder.
+/Frames/
+/_source_assets_archive/
+/public/frames/truck-journey/
