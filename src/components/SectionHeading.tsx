@@ -4,12 +4,20 @@ interface SectionHeadingProps {
   eyebrow: string;
   title: string;
   sub?: string;
+  /** Layout classes for the heading block; override when the default
+   *  bottom margin doesn't fit (e.g. inside the dye-range frosted chip). */
+  className?: string;
 }
 
 /** Consistent centered heading block used by every section. */
-export default function SectionHeading({ eyebrow, title, sub }: SectionHeadingProps) {
+export default function SectionHeading({
+  eyebrow,
+  title,
+  sub,
+  className = "mx-auto mb-12 max-w-3xl text-center md:mb-16",
+}: SectionHeadingProps) {
   return (
-    <Reveal className="mx-auto mb-12 max-w-3xl text-center md:mb-16">
+    <Reveal className={className}>
       <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-dye-cyan">
         {eyebrow}
       </p>

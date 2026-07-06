@@ -50,50 +50,54 @@ export default function DyeRange() {
   const { t } = useLanguage();
 
   return (
-    <section className="w-full">
+    // Transparent wrapper: the truck-journey frames stay visible across the
+    // whole viewport; only the chip, cards and note carry local frosting.
+    <section className="w-full bg-transparent">
       <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
-        {/* Frosted panel: keeps heading + cards readable over the moving
-            journey frames without hiding them completely. */}
-        <div className="rounded-3xl border border-white/60 bg-white/80 p-5 shadow-2xl shadow-navy/15 backdrop-blur-md sm:p-8 lg:p-10">
-          <Fade stagger={0}>
+        <Fade stagger={0}>
+          {/* Frosted heading chip — local frosting instead of a full panel */}
+          <div className="mx-auto mb-10 w-fit max-w-3xl rounded-2xl border border-white/60 bg-white/75 px-6 py-5 text-center shadow-lg shadow-navy/10 backdrop-blur-md sm:px-8 md:mb-12">
             <SectionHeading
               eyebrow={t.dyeRange.eyebrow}
               title={t.dyeRange.title}
               sub={t.dyeRange.sub}
+              className="mx-auto max-w-3xl text-center"
             />
-          </Fade>
-
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {t.dyeRange.items.map((item, i) => {
-              const swatch = SWATCHES[i % SWATCHES.length];
-              return (
-                <Fade key={item.name} stagger={0.15 + i * 0.06} className="h-full">
-                  <div className="group h-full rounded-2xl border border-line bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md sm:p-7">
-                    {/* Shade strip — the dye-swatch identity of the card */}
-                    <div
-                      className="mb-6 flex h-9 overflow-hidden rounded-lg border border-line"
-                      aria-hidden="true"
-                    >
-                      {TINT_STEPS.map((tint) => (
-                        <div key={tint} className={`flex-1 ${swatch.bar} ${tint}`} />
-                      ))}
-                    </div>
-                    <h3 className="text-lg font-semibold text-ink-strong">{item.name}</h3>
-                    <p className={`mt-1 text-sm font-medium ${swatch.label}`}>{item.use}</p>
-                    <p className="mt-3 text-sm leading-relaxed text-ink-soft">{item.desc}</p>
-                  </div>
-                </Fade>
-              );
-            })}
           </div>
+        </Fade>
 
-          <Fade stagger={0.55} className="mt-8">
-            <p className="flex items-center justify-center gap-2 text-center text-sm text-ink-soft">
-              <DropletIcon className="h-4 w-4 shrink-0 text-dye-cyan" />
-              {t.dyeRange.note}
-            </p>
-          </Fade>
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {t.dyeRange.items.map((item, i) => {
+            const swatch = SWATCHES[i % SWATCHES.length];
+            return (
+              <Fade key={item.name} stagger={0.15 + i * 0.06} className="h-full">
+                {/* Frosted card: readable over the moving frames without
+                    hiding the journey behind it */}
+                <div className="group h-full rounded-2xl border border-white/60 bg-white/80 p-6 shadow-lg shadow-navy/10 backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:bg-white/90 hover:shadow-xl sm:p-7">
+                  {/* Shade strip — the dye-swatch identity of the card */}
+                  <div
+                    className="mb-6 flex h-9 overflow-hidden rounded-lg border border-line"
+                    aria-hidden="true"
+                  >
+                    {TINT_STEPS.map((tint) => (
+                      <div key={tint} className={`flex-1 ${swatch.bar} ${tint}`} />
+                    ))}
+                  </div>
+                  <h3 className="text-lg font-semibold text-ink-strong">{item.name}</h3>
+                  <p className={`mt-1 text-sm font-medium ${swatch.label}`}>{item.use}</p>
+                  <p className="mt-3 text-sm leading-relaxed text-ink-soft">{item.desc}</p>
+                </div>
+              </Fade>
+            );
+          })}
         </div>
+
+        <Fade stagger={0.55} className="mt-8">
+          <p className="mx-auto flex w-fit items-center justify-center gap-2 rounded-full border border-white/50 bg-white/70 px-5 py-2.5 text-center text-sm text-ink-soft shadow-md shadow-navy/5 backdrop-blur-md">
+            <DropletIcon className="h-4 w-4 shrink-0 text-dye-cyan" />
+            {t.dyeRange.note}
+          </p>
+        </Fade>
       </div>
     </section>
   );
